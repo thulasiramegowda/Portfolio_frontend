@@ -1,4 +1,4 @@
-﻿const Admin = require('../models/Admin');
+const Admin = require('../models/Admin');
 const jwt = require('jsonwebtoken');
 
 const generateToken = (res, adminId) => {
@@ -8,8 +8,8 @@ const generateToken = (res, adminId) => {
 
   res.cookie('jwt', token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV !== 'development',
-    sameSite: 'strict',
+    secure: true, // Must be true for sameSite: 'none'
+    sameSite: 'none', // Crucial for Vercel (frontend) -> Render (backend) cookies
     maxAge: 30 * 24 * 60 * 60 * 1000,
   });
 };
@@ -49,6 +49,8 @@ const setupAdmin = async (req, res) => {
 const logoutAdmin = (req, res) => {
   res.cookie('jwt', '', {
     httpOnly: true,
+    secure: true,
+    sameSite: 'none',
     expires: new Date(0),
   });
   res.status(200).json({ message: 'Logged out successfully' });
