@@ -1,44 +1,117 @@
-# The Journey - Personal Portfolio & Admin CMS
+# The Journey — Personal Portfolio
 
-A production-ready full-stack portfolio application. It features a premium, editorial-style public frontend and a secure, private Admin CMS for managing all portfolio content.
+> A personal portfolio documenting my journey of learning, building, exploring, and creating with technology.
+
+## Live Portfolio
+
+[Visit The Journey](https://portfolio-frontend-thulasi21.vercel.app/)
+
+**Live Website:**  
+https://portfolio-frontend-thulasi21.vercel.app/
+
+---
+
+## About
+
+**The Journey** is my personal portfolio website, built to showcase who I am, what I build, what I am learning, and where I am heading.
+
+I am **Thulasi G T**, a Computer Science & Information Technology student interested in:
+
+- Artificial Intelligence
+- Generative AI
+- Machine Learning
+- Software Development
+- Creative Technology
+- Web Development
+- Emerging Technologies
+
+The portfolio is designed as a digital journey rather than simply a traditional resume website.
+
+It brings together my:
+
+- Projects
+- Journey & milestones
+- Skills
+- Experience
+- Hackathons
+- Certifications
+- Education
+- Artwork
+- Blog / Notes
+- Resume
+- Professional links
+
+---
+
+## Design
+
+The portfolio follows a premium editorial and cinematic design direction inspired by:
+
+- Editorial magazines
+- Digital journals
+- Creative portfolios
+- Technical case studies
+- Personal sketchbooks
+
+### Visual Language
+
+- Black
+- Deep Red
+- Off-White
+- White
+- Subtle Yellow accents
+- Editorial typography
+- Asymmetric layouts
+- Floating elements
+- Hand-drawn annotations
+- Subtle motion
+- Interactive project sections
+- Personal artwork
+
+The goal is to combine **technology + creativity + personality** instead of creating another generic developer portfolio.
+
+---
+
+## Tech Stack
+
+### Frontend
+
+- React
+- Vite
+- Tailwind CSS
+- Framer Motion
+- Lucide React
+
+### Deployment
+
+- Vercel
+- GitHub
+
+### Development
+
+- VS Code
+- Git
+- GitHub
+
+---
 
 ## Architecture
-- **Frontend**: React, Vite, Tailwind CSS v4, Framer Motion
-- **Backend**: Node.js, Express.js
-- **Database**: MongoDB & Mongoose
-- **Image Storage**: Cloudinary
 
-## Setup Instructions
+This is a **frontend-only portfolio application**.
 
-### 1. MongoDB Setup
-You need a MongoDB connection string (local or MongoDB Atlas).
-
-### 2. Cloudinary Setup
-1. Create a free Cloudinary account.
-2. Get your `Cloud Name`, `API Key`, and `API Secret`.
-
-### 3. Backend Setup
-1. \`cd backend\`
-2. \`npm install\`
-3. Create a \`.env\` file in the \`backend\` directory (copy from \`.env.example\`) and fill in your MongoDB URI, JWT Secret, and Cloudinary credentials.
-4. Run \`npm run dev\`
-
-### 4. Frontend Setup
-1. \`cd frontend\`
-2. \`npm install\`
-3. Run \`npm run dev\`
-
-### 5. Initial Admin Setup
-Before you can log in, you must create the initial admin user.
-Use an API client like Postman or Curl to send a POST request:
-
-\`\`\`bash
-curl -X POST http://localhost:5000/api/auth/setup \
--H "Content-Type: application/json" \
--d '{"email": "admin@example.com", "password": "yourpassword"}'
-\`\`\`
-*(This route is protected to only allow ONE admin user. Once created, this route cannot create more admins.)*
-
-### 6. Deployment
-- **Frontend**: Can be easily deployed to Vercel. (Make sure to set VITE_API_URL if needed, though Vercel rewrites can also be used).
-- **Backend**: Deploy to any Node.js hosting provider (Render, Railway, DigitalOcean). Set the corresponding ENV variables.
+```text
+                    THE JOURNEY
+                         |
+                         v
+                  React + Vite
+                         |
+             +-----------+-----------+
+             |           |           |
+             v           v           v
+          Content      Images      Resume
+       portfolio.js    /public     /public
+             |           |           |
+             +-----------+-----------+
+                         |
+                         v
+                       Vercel
