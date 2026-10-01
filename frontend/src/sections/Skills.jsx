@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 export default function Skills({ skills }) {
   if (!skills || skills.length === 0) return null;
 
-  // Group skills by category
   const categories = skills.reduce((acc, skill) => {
     const cat = skill.category || 'TECHNICAL';
     if (!acc[cat]) acc[cat] = [];
@@ -12,19 +11,12 @@ export default function Skills({ skills }) {
   }, {});
 
   return (
-    <section id="skills" className="relative py-32 md:py-48 px-6 bg-[#1a1a1c] overflow-hidden">
+    <section id="skills" className="relative py-32 md:py-48 px-6 bg-[#050505] text-[#fcfcfc] overflow-hidden border-t border-[#333]">
       
-      {/* Section Transition Header */}
-      <div className="absolute top-0 left-0 w-full border-t border-[#333333]/50 flex items-center justify-between px-6 py-4 font-mono text-[10px] tracking-[0.2em] text-[#888888] uppercase">
-        <span>05</span>
-        <span>ARSENAL</span>
-        <span>CAPABILITIES</span>
-      </div>
-
       {/* Decorative Grid */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] bg-[size:4rem_4rem]"></div>
 
-      <div className="max-w-6xl mx-auto relative z-10">
+      <div className="max-w-7xl mx-auto px-0 sm:px-6 md:px-14 relative z-10">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -33,10 +25,13 @@ export default function Skills({ skills }) {
         >
           <div>
             <div className="flex items-center space-x-4 mb-6">
-              <span className="w-8 h-px bg-[#ff4747]"></span>
-              <span className="font-mono text-[10px] tracking-[0.2em] text-[#ff4747]">SYSTEMS & LANGUAGES</span>
+              <span className="w-8 h-px bg-[#960018]"></span>
+              <span className="font-mono text-[10px] tracking-[0.2em] text-[#960018]">05 / ARSENAL</span>
             </div>
-            <h2 className="text-5xl md:text-7xl lg:text-[6rem] font-serif tracking-tighter leading-none text-white">Technical<br/><span className="italic text-[#888888] font-light">Stack.</span></h2>
+            <h2 className="text-5xl md:text-7xl lg:text-[6rem] font-serif tracking-tighter leading-none text-white">
+              Technical<br/>
+              <span className="italic text-[#888] font-light">Stack.</span>
+            </h2>
           </div>
         </motion.div>
         
@@ -51,27 +46,27 @@ export default function Skills({ skills }) {
               className="flex flex-col"
             >
               <div className="flex items-center space-x-4 mb-8">
-                <h3 className="font-mono text-sm tracking-[0.2em] uppercase text-[#ff4747]">
+                <h3 className="font-mono text-[10px] tracking-[0.2em] uppercase text-[#960018] font-bold">
                   {category}
                 </h3>
-                <div className="flex-1 h-px bg-[#333333]"></div>
+                <div className="flex-1 h-px bg-[#333]"></div>
               </div>
               
               <ul className="flex flex-col space-y-4">
                 {categorySkills.map((skill, sIdx) => (
                   <motion.li 
                     key={skill._id} 
-                    className="group relative cursor-none flex items-center overflow-hidden"
+                    className="group relative cursor-none flex items-center overflow-hidden py-1"
                     whileHover={{ x: 10 }}
                     transition={{ type: "spring", stiffness: 400, damping: 30 }}
                   >
-                    <span className="text-[#333333] font-mono text-[10px] mr-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      {sIdx < 9 ? `0${sIdx + 1}` : sIdx + 1}
+                    <span className="text-[#333] font-mono text-[9px] mr-6 opacity-100 group-hover:text-[#960018] transition-colors duration-300">
+                      0{sIdx + 1}
                     </span>
                     <span className="font-serif text-2xl md:text-3xl text-[#a0a0a0] group-hover:text-white transition-colors duration-300">
                       {skill.name}
                     </span>
-                    <div className="absolute bottom-1 left-0 w-full h-px bg-gradient-to-r from-[#ff4747] to-transparent transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out opacity-0 group-hover:opacity-100"></div>
+                    <div className="absolute bottom-0 left-0 w-full h-[1px] bg-[#960018] transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out opacity-0 group-hover:opacity-100"></div>
                   </motion.li>
                 ))}
               </ul>

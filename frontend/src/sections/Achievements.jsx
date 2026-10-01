@@ -4,35 +4,51 @@ export default function Achievements({ achievements }) {
   if (!achievements || achievements.length === 0) return null;
 
   return (
-    <section id="achievements" className="py-24 px-6 border-t border-[#333333]/50">
-      <div className="max-w-7xl mx-auto">
-        <h2 className="text-3xl md:text-5xl font-serif mb-16">Achievements</h2>
+    <section id="achievements" className="py-32 md:py-48 bg-[#050505] text-white border-t border-[#333]">
+      <div className="max-w-7xl mx-auto px-6 sm:px-12 md:px-20">
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          className="mb-16 md:mb-24 flex flex-col md:flex-row justify-between items-end border-b border-[#333] pb-12"
+        >
+          <div>
+            <div className="flex items-center space-x-4 mb-4">
+              <span className="w-8 h-px bg-[#facc15]"></span>
+              <span className="font-mono text-[10px] tracking-[0.2em] text-[#facc15] uppercase">06 / MILESTONES</span>
+            </div>
+            <h2 className="text-5xl md:text-7xl font-serif tracking-tighter leading-none">
+              Achievements
+            </h2>
+          </div>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {achievements.map((ach, index) => (
             <motion.div 
               key={ach._id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="border border-[#333333] rounded-xl overflow-hidden group hover:border-[#ff4747]/50 transition-colors bg-[#1a1a1c]"
+              className="bg-[#111] p-10 border border-[#333] hover:border-[#facc15]/50 transition-colors group relative overflow-hidden"
             >
-              {ach.imageUrl && (
-                <div className="h-48 overflow-hidden border-b border-[#333333]">
-                  <img src={ach.imageUrl} alt={ach.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                </div>
-              )}
-              <div className="p-6">
-                <div className="text-xs text-[#888888] font-mono mb-2">{ach.date}</div>
-                <h3 className="text-lg font-medium mb-1">{ach.title}</h3>
-                <h4 className="text-[#ff4747] text-sm mb-3">{ach.organization}</h4>
-                <p className="text-[#888888] text-sm line-clamp-3">{ach.description}</p>
-                {ach.url && (
-                  <a href={ach.url} target="_blank" rel="noreferrer" className="inline-block mt-4 text-sm text-white hover:text-[#ff4747] transition-colors">
-                    View Details &rarr;
-                  </a>
+              {/* Decorative number */}
+              <div className="absolute top-4 right-6 font-serif italic text-6xl text-[#222] z-0 group-hover:text-[#facc15]/10 transition-colors">
+                0{index + 1}
+              </div>
+              
+              <div className="relative z-10">
+                <h3 className="text-2xl font-serif mb-4 text-[#fcfcfc]">{ach.title}</h3>
+                {ach.project && (
+                  <div className="text-[9px] font-mono tracking-widest text-[#facc15] border border-[#facc15]/30 px-2 py-1 inline-block uppercase mb-6 bg-[#facc15]/5">
+                    {ach.project}
+                  </div>
                 )}
+                <p className="text-[#a0a0a0] font-light leading-relaxed">
+                  {ach.description}
+                </p>
               </div>
             </motion.div>
           ))}

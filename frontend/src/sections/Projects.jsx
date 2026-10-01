@@ -1,130 +1,135 @@
-import { motion } from 'framer-motion';
-import { ExternalLink, Code2, ArrowRight } from 'lucide-react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
+import { ArrowRight, Code, ExternalLink } from 'lucide-react';
+import ImagePlaceholder from '../components/ImagePlaceholder';
 
 export default function Projects({ projects }) {
   if (!projects || projects.length === 0) return null;
 
   return (
-    <section id="projects" className="relative py-32 md:py-48 px-6 bg-[#0f0f11] overflow-hidden">
-      
-      {/* Section Transition Header */}
-      <div className="absolute top-0 left-0 w-full border-t border-[#333333]/50 flex items-center justify-between px-6 py-4 font-mono text-[10px] tracking-[0.2em] text-[#888888] uppercase">
-        <span>04</span>
-        <span>SELECTED WORKS</span>
-        <span>CASE STUDIES</span>
-      </div>
-
-      <div className="max-w-7xl mx-auto relative z-10">
-        <motion.div 
+    <section id="projects" className="py-32 md:py-48 bg-[#fdfcf7] text-[#111] relative border-t border-[#e0e0e0] overflow-hidden">
+      <div className="max-w-[1400px] mx-auto px-6 sm:px-12 md:px-16">
+        
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
-          className="mb-24 flex flex-col md:flex-row md:items-end justify-between border-b border-[#333333]/50 pb-12"
+          className="mb-32 md:mb-48"
         >
-          <div>
-            <div className="flex items-center space-x-4 mb-6">
-              <span className="w-8 h-px bg-[#ff4747]"></span>
-              <span className="font-mono text-[10px] tracking-[0.2em] text-[#ff4747]">PORTFOLIO</span>
-            </div>
-            <h2 className="text-5xl md:text-7xl lg:text-[6rem] font-serif tracking-tighter leading-none">Featured<br/><span className="italic text-[#888888] font-light">Work.</span></h2>
+          <div className="flex items-center space-x-4 mb-6">
+            <span className="w-8 h-px bg-[#960018]"></span>
+            <span className="font-mono text-[10px] tracking-[0.2em] text-[#960018] uppercase">03 / CASE STUDIES</span>
           </div>
-          <div className="mt-8 md:mt-0 font-mono text-[10px] tracking-[0.2em] text-[#666666] flex flex-col items-start md:items-end">
-            <span>INDEX: 01 — {projects.length < 10 ? `0${projects.length}` : projects.length}</span>
-            <span className="mt-2">LATEST UPDATES</span>
-          </div>
+          <h2 className="text-6xl md:text-[8rem] font-serif tracking-tighter leading-none mb-6">
+            Selected Work
+          </h2>
+          <p className="text-xl md:text-2xl text-[#666] font-light max-w-2xl font-serif italic border-l-2 border-[#111]/20 pl-6">
+            Practical solutions built through exploration of AI, software engineering, and modern tech stacks.
+          </p>
         </motion.div>
-        
-        <div className="flex flex-col space-y-32">
+
+        <div className="space-y-40 md:space-y-64">
           {projects.map((project, index) => {
-            const isFeatured = index === 0;
-            
+            const isEven = index % 2 === 0;
+            const ref = useRef(null);
+            const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+            const yOffset = useTransform(scrollYProgress, [0, 1], [50, -50]);
+
             return (
               <motion.div 
                 key={project._id}
+                ref={ref}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                className={`group cursor-none ${isFeatured ? 'mb-16' : ''}`}
+                transition={{ duration: 0.8 }}
+                className="group relative"
               >
-                <div className={`grid grid-cols-1 ${isFeatured ? 'lg:grid-cols-12 gap-12' : 'md:grid-cols-2 gap-8 lg:gap-16'} items-center`}>
+                {/* Visual Number */}
+                <div className={`absolute -top-24 ${isEven ? 'left-0' : 'right-0'} font-serif italic text-[10rem] md:text-[18rem] text-[#111]/5 z-0 font-bold leading-none pointer-events-none`}>
+                  0{index + 1}
+                </div>
+
+                <div className={`flex flex-col gap-16 md:gap-24 ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} relative z-10 items-center`}>
                   
-                  {/* Project Image */}
-                  <div className={`${isFeatured ? 'lg:col-span-8' : 'md:col-span-1'} ${!isFeatured && index % 2 !== 0 ? 'md:order-2' : 'md:order-1'}`}>
-                    <div className="relative overflow-hidden bg-[#1a1a1c] isolate">
-                      <div className={`relative ${isFeatured ? 'aspect-[16/9]' : 'aspect-[4/5] sm:aspect-[4/3]'} w-full overflow-hidden`}>
+                  {/* Image Block */}
+                  <div className="w-full lg:w-[60%]">
+                    <motion.a 
+                      style={{ y: yOffset }}
+                      href={project.liveUrl || project.githubUrl || '#'} 
+                      target="_blank" 
+                      rel="noreferrer" 
+                      className="block w-full overflow-hidden bg-white border border-[#e0e0e0] p-3 shadow-xl group-hover:shadow-2xl transition-all duration-700 relative"
+                    >
+                      <div className="aspect-[16/10] relative overflow-hidden bg-[#fafafa]">
                         {project.imageUrl ? (
                           <img 
                             src={project.imageUrl} 
                             alt={project.name} 
-                            className="absolute inset-0 w-full h-full object-cover filter contrast-[1.1] saturate-[0.8] group-hover:saturate-100 group-hover:scale-[1.03] transition-all duration-[1.5s] ease-[cubic-bezier(0.16,1,0.3,1)]" 
+                            className="w-full h-full object-cover filter grayscale-[0.2] group-hover:grayscale-0 group-hover:scale-[1.03] transition-all duration-1000 ease-out" 
+                            onError={(e) => {
+                              const parent = e.target.parentElement;
+                              import('react-dom/client').then(ReactDOM => {
+                                const root = ReactDOM.createRoot(parent);
+                                root.render(<ImagePlaceholder text={project.name} subtext="VISUAL COMING SOON" />);
+                              });
+                            }}
                           />
                         ) : (
-                          <div className="absolute inset-0 w-full h-full flex flex-col items-center justify-center text-[#333333]">
-                            <Code2 className="w-12 h-12 mb-4 opacity-30" />
-                            <span className="font-serif text-xl tracking-widest">{project.name}</span>
-                          </div>
+                          <ImagePlaceholder text={project.name} subtext="VISUAL COMING SOON" />
                         )}
-                        
-                        {/* Hover Overlay & Links */}
-                        <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-700 flex flex-col justify-between p-8 z-10 pointer-events-none">
-                          <div className="flex justify-end space-x-4 pointer-events-auto">
-                            {project.githubUrl && (
-                              <a href={project.githubUrl} target="_blank" rel="noreferrer" className="w-12 h-12 bg-white text-black rounded-full flex items-center justify-center hover:scale-110 hover:bg-[#ff4747] hover:text-white transition-all duration-300 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100">
-                                <Code2 className="w-5 h-5" />
-                              </a>
-                            )}
-                            {project.liveUrl && (
-                              <a href={project.liveUrl} target="_blank" rel="noreferrer" className="w-12 h-12 bg-[#ff4747] text-white rounded-full flex items-center justify-center hover:scale-110 hover:bg-white hover:text-black transition-all duration-300 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 delay-75">
-                                <ExternalLink className="w-5 h-5" />
-                              </a>
-                            )}
-                          </div>
-                          <div className="transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-700 delay-100">
-                            <span className="font-mono text-[10px] tracking-[0.2em] text-white uppercase bg-black/50 px-3 py-1 backdrop-blur-md">
-                              {project.category}
-                            </span>
-                          </div>
-                        </div>
                       </div>
-                    </div>
+                    </motion.a>
                   </div>
                   
-                  {/* Project Info */}
-                  <div className={`${isFeatured ? 'lg:col-span-4' : 'md:col-span-1 flex flex-col justify-center'} ${!isFeatured && index % 2 !== 0 ? 'md:order-1' : 'md:order-2'} py-8`}>
-                    <div className="flex items-center space-x-4 mb-6">
-                      <span className="font-mono text-[10px] tracking-[0.2em] text-[#666666]">
-                        {index < 9 ? `0${index + 1}` : index + 1}
+                  {/* Content Block */}
+                  <div className="w-full lg:w-[40%] flex flex-col pt-8 md:pt-0">
+                    <div className="flex flex-wrap items-center gap-4 mb-6">
+                      <span className="text-[10px] font-mono tracking-widest uppercase bg-[#111] text-white px-3 py-1">
+                        {project.role || 'DEVELOPER'}
                       </span>
-                      <span className="w-8 h-px bg-[#333333] group-hover:bg-[#ff4747] transition-colors duration-500"></span>
-                      <span className="font-mono text-[10px] tracking-[0.2em] text-[#ff4747] uppercase">
-                        {project.category}
+                      <span className="text-[10px] font-mono tracking-widest uppercase text-[#888]">
+                        {project.category || 'PROJECT'}
                       </span>
                     </div>
                     
-                    <h3 className={`font-serif ${isFeatured ? 'text-5xl md:text-6xl' : 'text-4xl md:text-5xl'} mb-6 group-hover:text-[#ff4747] transition-colors duration-500 tracking-tight leading-[1.1]`}>
+                    <h3 className="text-5xl md:text-7xl font-serif mb-8 leading-none tracking-tight text-[#111]">
                       {project.name}
                     </h3>
+
+                    <div className="space-y-8 text-[#444] font-light leading-relaxed mb-10 text-lg">
+                      <p>{project.shortDesc}</p>
+                      
+                      {project.myRole && (
+                        <div className="border-l-2 border-[#960018]/50 pl-4 bg-[#f9f9f9] py-3 pr-4">
+                          <strong className="block text-[9px] font-mono tracking-[0.2em] text-[#888] uppercase mb-1">My Role</strong>
+                          <p className="text-base text-[#333] italic">{project.myRole}</p>
+                        </div>
+                      )}
+                    </div>
                     
-                    <p className="text-[#a0a0a0] text-lg font-light leading-relaxed mb-10 max-w-lg">
-                      {project.shortDesc}
-                    </p>
-                    
+                    {/* Technologies */}
                     <div className="flex flex-wrap gap-2 mb-12">
-                      {project.technologies.map(tech => (
-                        <span key={tech} className="text-[10px] font-mono tracking-widest border border-[#333333] px-3 py-1 text-[#888888] uppercase">
+                      {project.technologies?.map(tech => (
+                        <span key={tech} className="text-[10px] font-mono tracking-widest border border-[#d0d0d0] px-3 py-1.5 text-[#333] uppercase">
                           {tech}
                         </span>
                       ))}
                     </div>
 
-                    <a href={project.liveUrl || project.githubUrl || '#'} target="_blank" rel="noreferrer" className="inline-flex items-center space-x-4 text-white font-mono text-xs tracking-widest uppercase group/link cursor-none">
-                      <span className="relative overflow-hidden pb-1">
-                        <span className="block transition-transform duration-300 group-hover/link:-translate-y-full">VIEW CASE STUDY</span>
-                        <span className="absolute top-0 left-0 block translate-y-full transition-transform duration-300 group-hover/link:translate-y-0 text-[#ff4747]">VIEW CASE STUDY</span>
-                      </span>
-                      <ArrowRight className="w-4 h-4 text-[#888888] group-hover/link:text-[#ff4747] group-hover/link:translate-x-2 transition-all duration-300" />
-                    </a>
+                    {/* Links */}
+                    <div className="flex items-center gap-8 mt-auto font-mono text-xs tracking-widest uppercase font-bold">
+                      {project.liveUrl && (
+                        <a href={project.liveUrl} target="_blank" rel="noreferrer" className="group flex items-center gap-2 hover:text-[#960018] transition-colors pb-1 border-b border-[#111] hover:border-[#960018]">
+                          LIVE DEMO <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                        </a>
+                      )}
+                      {project.githubUrl && (
+                        <a href={project.githubUrl} target="_blank" rel="noreferrer" className="group flex items-center gap-2 hover:text-[#960018] transition-colors pb-1 border-b border-[#111] hover:border-[#960018]">
+                          GITHUB <Code size={14} />
+                        </a>
+                      )}
+                    </div>
                   </div>
                   
                 </div>

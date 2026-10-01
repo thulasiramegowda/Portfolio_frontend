@@ -4,63 +4,68 @@ export default function Experience({ experience }) {
   if (!experience || experience.length === 0) return null;
 
   return (
-    <section id="experience" className="relative py-32 md:py-48 px-6 bg-[#0f0f11] overflow-hidden">
-      
-      {/* Section Transition Header */}
-      <div className="absolute top-0 left-0 w-full border-t border-[#333333]/50 flex items-center justify-between px-6 py-4 font-mono text-[10px] tracking-[0.2em] text-[#888888] uppercase">
-        <span>07</span>
-        <span>PROFESSIONAL</span>
-        <span>EXPERIENCE</span>
-      </div>
-
-      <div className="max-w-6xl mx-auto relative z-10">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          className="mb-24 flex items-center space-x-6"
-        >
-          <h2 className="text-4xl md:text-5xl lg:text-7xl font-serif text-white tracking-tighter">Experience.</h2>
-          <div className="flex-1 h-px bg-[#333333]"></div>
-        </motion.div>
+    <section id="experience" className="py-32 md:py-48 bg-[#fdfcf7] text-[#111] relative border-t border-[#e0e0e0]">
+      <div className="max-w-7xl mx-auto px-6 sm:px-12 md:px-20">
         
-        <div className="space-y-24">
-          {experience.map((exp, index) => (
-            <motion.div 
-              key={exp._id}
-              initial={{ opacity: 0, y: 30 }}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
+          <div className="lg:col-span-4">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, delay: index * 0.1 }}
-              className="grid grid-cols-1 md:grid-cols-12 gap-8 group"
+              className="sticky top-32"
             >
-              <div className="md:col-span-3 text-[#666666] font-mono text-[10px] tracking-[0.2em] pt-3 flex flex-col md:items-end md:text-right pr-8">
-                <span>{exp.startDate}</span>
-                <span className="my-2 h-4 w-px bg-[#333333] hidden md:block"></span>
-                <span>{exp.endDate || 'PRESENT'}</span>
+              <div className="flex items-center space-x-4 mb-6">
+                <span className="w-8 h-px bg-[#960018]"></span>
+                <span className="font-mono text-[10px] tracking-[0.2em] text-[#960018] uppercase">04 / HISTORY</span>
               </div>
-              
-              <div className="md:col-span-9 relative">
-                <h3 className="text-3xl md:text-4xl font-serif mb-2 group-hover:text-[#ff4747] transition-colors text-white">{exp.position}</h3>
-                <h4 className="text-lg font-mono tracking-widest text-[#888888] mb-8 uppercase">{exp.organization}</h4>
+              <h2 className="text-5xl md:text-6xl font-serif tracking-tighter leading-none mb-6">
+                Experience
+              </h2>
+              <p className="text-[#666] font-light">
+                Where I've applied my learning in real-world contexts.
+              </p>
+            </motion.div>
+          </div>
+
+          <div className="lg:col-span-8 flex flex-col gap-12">
+            {experience.map((exp, index) => (
+              <motion.div 
+                key={exp._id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="group border border-[#d0d0d0] bg-white p-8 md:p-12 shadow-sm hover:shadow-xl transition-all duration-500"
+              >
+                <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-4 mb-6 border-b border-[#e0e0e0] pb-6">
+                  <div>
+                    <h3 className="text-3xl font-serif text-[#111] group-hover:text-[#960018] transition-colors">{exp.role}</h3>
+                    <div className="text-lg text-[#555] font-light mt-1 uppercase font-mono tracking-widest text-xs">{exp.company}</div>
+                  </div>
+                  <div className="font-mono text-[10px] tracking-widest text-[#666] whitespace-nowrap bg-[#f3f3f3] px-3 py-1 self-start md:self-auto uppercase">
+                    {exp.duration}
+                  </div>
+                </div>
                 
-                <p className="text-[#a0a0a0] leading-relaxed font-light mb-8 whitespace-pre-line text-lg max-w-2xl">
+                <p className="text-[#444] font-light leading-relaxed mb-8 text-lg">
                   {exp.description}
                 </p>
-                
+
                 {exp.technologies && exp.technologies.length > 0 && (
-                  <div className="flex flex-wrap gap-2">
-                    {exp.technologies.map(tech => (
-                      <span key={tech} className="text-[10px] font-mono border border-[#333333] px-3 py-1.5 text-[#888888] uppercase tracking-widest">
+                  <div className="flex flex-wrap gap-2 pt-4">
+                    {exp.technologies.map((tech) => (
+                      <span key={tech} className="text-[9px] font-mono tracking-widest text-[#555] uppercase border border-[#d0d0d0] px-3 py-1 bg-[#fdfcf7]">
                         {tech}
                       </span>
                     ))}
                   </div>
                 )}
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            ))}
+          </div>
         </div>
+
       </div>
     </section>
   );

@@ -1,71 +1,86 @@
 import { motion } from 'framer-motion';
 
 export default function About({ profile }) {
-  if (!profile?.longBio) return null;
-
-  // Split bio into paragraphs
-  const paragraphs = profile.longBio.split('\n').filter(p => p.trim() !== '');
+  if (!profile) return null;
 
   return (
-    <section id="about" className="relative bg-[#e6e4e0] text-[#0f0f11] overflow-hidden">
-      
-      {/* Section Transition Header */}
-      <div className="absolute top-0 left-0 w-full border-t border-[#0f0f11]/10 flex items-center justify-between px-6 py-4 font-mono text-[10px] tracking-[0.2em] text-[#0f0f11]/40 uppercase">
-        <span>02</span>
-        <span>THE BUILDER</span>
-        <span>WHO I AM</span>
+    <section id="about" className="py-32 md:py-48 bg-[#fdfcf7] text-[#111] relative overflow-hidden">
+      {/* Decorative Grid */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.04]" 
+           style={{ backgroundImage: 'linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)', backgroundSize: '40px 40px' }}>
       </div>
 
-      <div className="max-w-6xl mx-auto px-6 py-32 md:py-40">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24">
+      <div className="max-w-7xl mx-auto px-6 sm:px-12 md:px-20 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
           
-          {/* Statement */}
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-5 flex flex-col justify-between"
-          >
-            <div>
-              <div className="font-mono text-[10px] tracking-[0.2em] text-[#ff4747] mb-8 font-bold">IDENTITY</div>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif leading-[1.1] tracking-tight">
-                Driven by <br className="hidden lg:block"/>
-                <span className="italic text-[#666666] font-light">curiosity, logic,</span> <br className="hidden lg:block"/>
-                and code.
+          <div className="lg:col-span-5 relative">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+            >
+              <div className="flex items-center space-x-4 mb-8">
+                <span className="w-8 h-px bg-[#960018]"></span>
+                <span className="font-mono text-[10px] tracking-[0.2em] text-[#960018] uppercase">01 / WHO I AM</span>
+              </div>
+              <h2 className="text-6xl md:text-7xl lg:text-[6rem] font-serif tracking-tighter leading-[0.9] mb-8">
+                Curious.<br />
+                Driven.<br />
+                <span className="italic text-[#888] font-light">Builder.</span>
               </h2>
-            </div>
-          </motion.div>
-          
-          {/* Paragraphs */}
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-7"
-          >
-            <div className="prose prose-lg md:prose-xl prose-p:font-sans prose-p:font-light prose-p:leading-relaxed prose-p:text-[#333333] max-w-none">
-              {paragraphs.map((p, idx) => (
-                <p key={idx} className="mb-8">{p}</p>
-              ))}
-            </div>
+            </motion.div>
             
-            <div className="mt-16 pt-12 border-t border-[#0f0f11]/10 grid grid-cols-2 gap-8">
-              <div className="group cursor-default">
-                <div className="font-mono text-[10px] tracking-[0.2em] text-[#888888] mb-3 transition-colors group-hover:text-[#ff4747]">LOCATION</div>
-                <div className="font-serif text-2xl tracking-tight">{profile.location || 'Earth'}</div>
+            {/* Hand-drawn underline */}
+            <svg className="absolute top-[80%] left-0 w-48 h-8 text-[#facc15] opacity-60 z-0 hidden lg:block" viewBox="0 0 200 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 15 Q 100 0 195 15" stroke="currentColor" strokeWidth="4" strokeLinecap="round"/>
+            </svg>
+          </div>
+
+          <div className="lg:col-span-7 flex flex-col justify-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ delay: 0.2 }}
+              className="font-serif text-xl md:text-2xl text-[#333] font-light leading-relaxed space-y-8"
+            >
+              <p>
+                I am a Computer Science & Information Technology student who learns best by building.
+              </p>
+              <p>
+                My interest lies at the intersection of <strong className="font-medium text-[#111]">Artificial Intelligence</strong>, <strong className="font-medium text-[#111]">Software Development</strong>, and <strong className="font-medium text-[#111]">Creative Design</strong>. I enjoy experimenting with unfamiliar technologies and turning concepts into practical, working solutions.
+              </p>
+              <p>
+                Ultimately, I'm working towards becoming an AI Developer and entrepreneur—exploring ideas that can create meaningful impact.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4 }}
+              className="mt-16 pt-12 border-t border-[#111]/10 grid grid-cols-2 md:grid-cols-4 gap-8"
+            >
+              <div>
+                <span className="block text-[10px] font-mono tracking-[0.2em] text-[#888] uppercase mb-3">Focus</span>
+                <span className="font-sans font-bold text-sm tracking-widest uppercase">AI & Software</span>
               </div>
-              <div className="group cursor-default">
-                <div className="font-mono text-[10px] tracking-[0.2em] text-[#888888] mb-3 transition-colors group-hover:text-[#ff4747]">CONTACT</div>
-                <a href={`mailto:${profile.email}`} className="font-serif text-2xl tracking-tight cursor-none relative inline-block">
-                  <span className="relative z-10">{profile.email || 'Reach out'}</span>
-                  <span className="absolute bottom-0 left-0 w-full h-px bg-[#ff4747] transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></span>
-                </a>
+              <div>
+                <span className="block text-[10px] font-mono tracking-[0.2em] text-[#888] uppercase mb-3">Status</span>
+                <span className="font-sans font-bold text-sm tracking-widest uppercase">Student</span>
               </div>
-            </div>
-          </motion.div>
-          
+              <div>
+                <span className="block text-[10px] font-mono tracking-[0.2em] text-[#888] uppercase mb-3">Drive</span>
+                <span className="font-sans font-bold text-sm tracking-widest uppercase">Entrepreneur</span>
+              </div>
+              <div>
+                <span className="block text-[10px] font-mono tracking-[0.2em] text-[#888] uppercase mb-3">Vibe</span>
+                <span className="font-sans font-bold text-sm tracking-widest uppercase">Creative</span>
+              </div>
+            </motion.div>
+          </div>
+
         </div>
       </div>
     </section>
