@@ -115,8 +115,8 @@ This is a **frontend-only portfolio application**.
                          |
                          v
                        Vercel
-
-Connect
+'''
+## Connect
 If you would like to explore my work, collaborate, or simply connect:
 Email:
 thulasiramegowda29@gmail.com
@@ -124,3 +124,4 @@ GitHub:
 https://github.com/thulasiramegowda
 LinkedIn:
 https://www.linkedin.com/in/thulasi-rame-gowda-014374382/
+
